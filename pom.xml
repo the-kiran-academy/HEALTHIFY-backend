@@ -9,8 +9,8 @@
 		<version>2.5.2</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.hms</groupId>
-	<artifactId>HMS</artifactId>
+	<groupId>com.healthify</groupId>
+	<artifactId>HEALTHIFY</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>HEALTHIFY</name>
 	<description>Hospital Management System</description>
