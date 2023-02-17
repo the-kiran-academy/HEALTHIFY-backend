@@ -68,9 +68,14 @@ public class AppointmentController {
 		return null;
 	}
 
+//	pratik
 	@GetMapping(value = "/get-appointment-by-apointmentdate")
 	public ResponseEntity<List<Appointment>> getAppointmentsByDate(@RequestParam Date appointmentDate) {
-		return null;
+		List<Appointment> list = service.getAppointmentsByDate(appointmentDate);
+		if(list != null) {
+			return new ResponseEntity<List<Appointment>>(list, HttpStatus.OK);
+		}
+		return new ResponseEntity<List<Appointment>>(list, HttpStatus.NO_CONTENT);
 	}
 
 	@GetMapping(value = "/get-count-by-appointment-date")

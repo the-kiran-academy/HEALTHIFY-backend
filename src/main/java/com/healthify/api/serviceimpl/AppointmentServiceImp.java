@@ -57,7 +57,7 @@ public class AppointmentServiceImp implements AppointmentService {
 
 	@Override
 	public List<Appointment> getAppointmentsByDate(Date date) {
-		return null;
+		return appointmentDao.getAppointmentsByDate(date);
 	}
 
 	@Override

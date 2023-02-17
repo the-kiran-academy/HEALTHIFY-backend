@@ -3,6 +3,8 @@ package com.healthify.api.daoimpl;
 import java.sql.Date;
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaQuery;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -63,7 +65,22 @@ public class AppointmentDaoIMPL implements AppointmentDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Appointment> getAppointmentsByDate(Date date) {
-		return null;
+		Session session = null;
+		List<Appointment> list = null;
+		try {
+			session =	sf.openSession();
+			CriteriaQuery<Appointment> query = session.getCriteriaBuilder().createQuery(Appointment.class);
+			query.from(Appointment.class);
+			list = session.createQuery(query).getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(session.isOpen() || session != null) {
+				session.close();
+			}
+		}
+
+		return list;
 	}
 
 	@Override
