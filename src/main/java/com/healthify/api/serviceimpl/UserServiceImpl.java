@@ -92,7 +92,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> getUserByFirstName(String firstName) {
-		return null;	}
+		
+		return dao.getUserByFirstName(firstName);	}
 
 	@Override
 	public Role addRole(Role role) {

@@ -15,6 +15,7 @@ import com.healthify.api.entity.User;
 import com.healthify.api.exception.ResourceNotFoundException;
 import com.healthify.api.service.UserService;
 
+
 /**
  * @author RAM
  *
@@ -33,4 +34,16 @@ public class UserController {
 		return null;
 	}
 
+	
+	@GetMapping(value = "get-user-by-fistname/{name}")
+	public ResponseEntity<List<User>> getUserByFirstName(@PathVariable String name)
+	{
+	List<User>user=userService.getUserByFirstName(name);
+	if(user!=null) {
+		return new ResponseEntity<List<User>>(user,HttpStatus.OK);
+		}
+	else {
+		return new ResponseEntity<List<User>>(HttpStatus.NO_CONTENT);
+	}
+	}
 }
