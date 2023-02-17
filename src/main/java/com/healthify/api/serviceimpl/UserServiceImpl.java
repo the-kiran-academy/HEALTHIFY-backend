@@ -47,12 +47,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User loginUser(User user) {
 
-		return null;
+		return dao.loginUser(user);
 	}
 
 	@Override
 	public CustomUserDetail loadUserByUserId(String userId) {
-		return null;
+		return dao.loadUserByUserId(userId);
 	}
 
 	@Override

@@ -38,14 +38,39 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User loginUser(User user) {
-		return null;
-
+		Session session = sf.getCurrentSession();
+		User usr = null;
+		try {
+			usr = session.get(User.class, user.getUsername());
+			boolean matches = passwordEncoder.matches(user.getPassword(), usr.getPassword());
+			if (matches) {
+				return usr;
+			} else {
+				usr = null;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return usr;
 	}
 
 	@Override
 	public CustomUserDetail loadUserByUserId(String userId) {
-		return null;
-
+		Session session = sf.getCurrentSession();
+		CustomUserDetail user = new CustomUserDetail();
+		User usr = null;
+		try {
+			usr = session.get(User.class, userId);
+			if (usr != null) {
+				user.setUserid(usr.getUsername());
+				user.setPassword(usr.getPassword());
+				user.setRoles(usr.getRoles());
+			}
+			System.out.println("dao ..." + user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return user;
 	}
 
 	@Override
