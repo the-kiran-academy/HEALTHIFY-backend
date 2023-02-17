@@ -33,7 +33,19 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public boolean addUser(User user) {
-		return false;
+		Session session = sf.getCurrentSession();
+		boolean isAdded=false;
+		try {
+		User usr=session.get(User.class,user.getUsername());
+		if (usr==null) {
+			session.save(usr);
+			isAdded=true;
+		}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return isAdded;
 	}
 
 	@Override
