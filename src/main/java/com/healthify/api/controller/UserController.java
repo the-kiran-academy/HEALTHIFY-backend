@@ -38,8 +38,8 @@ public class UserController {
  public ResponseEntity<Long> getUsersTotalCounts(){
 	 long count = userService.getUsersTotalCounts();
 	 if(count!=0) {
-		 return new ResponseEntity<>(count, HttpStatus.ACCEPTED);
+		 return new ResponseEntity<Long>(count, HttpStatus.ACCEPTED);
 	 }else
-	 return new ResponseEntity<>(count, HttpStatus.NO_CONTENT);
+	 return new ResponseEntity<Long>(count, HttpStatus.NO_CONTENT);
  }
 }
