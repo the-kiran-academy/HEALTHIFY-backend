@@ -32,5 +32,14 @@ public class UserController {
 	public ResponseEntity<User> getUserById(@PathVariable String id) {
 		return null;
 	}
-
+	
+	
+ @GetMapping(value = "get-users-total-count")
+ public ResponseEntity<Long> getUsersTotalCounts(){
+	 long count = userService.getUsersTotalCounts();
+	 if(count!=0) {
+		 return new ResponseEntity<>(count, HttpStatus.ACCEPTED);
+	 }else
+	 return new ResponseEntity<>(count, HttpStatus.NO_CONTENT);
+ }
 }
