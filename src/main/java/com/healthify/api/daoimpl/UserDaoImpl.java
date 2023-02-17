@@ -86,7 +86,25 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public List<User> getUserByFirstName(String firstName) {
-		return null;
+		Session session=sf.openSession();
+		
+		
+		List<User> list=null;
+		try {
+			
+			Criteria criteria=session.createCriteria(User.class);
+			if(firstName!=null) {
+			list=criteria.list();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(session!=null) {
+				session.close();
+			}
+		}
+		return list;
 	}
 
 	@Override
