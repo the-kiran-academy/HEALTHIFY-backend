@@ -54,7 +54,12 @@ public class AdminController {
 
 	@GetMapping(value = "get-all-user", produces = "application/json")
 	public ResponseEntity<List<User>> getAllAdmin() {
-		return null;
+		List<User> allUsers = userService.getAllUsers();
+		if(allUsers!=null) {
+			return new ResponseEntity<List<User>>(allUsers,HttpStatus.FOUND);
+		}else {
+			throw new ResourceNotFoundException("resource not found");
+		}
 		
 	}
 
