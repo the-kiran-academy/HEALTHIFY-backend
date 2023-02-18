@@ -56,7 +56,7 @@ public class AdminController {
 	public ResponseEntity<List<User>> getAllAdmin() {
 		List<User> allUsers = userService.getAllUsers();
 		if(allUsers!=null) {
-			return new ResponseEntity<List<User>>(allUsers,HttpStatus.FOUND);
+			return new ResponseEntity<List<User>>(allUsers,HttpStatus.OK);
 		}else {
 			throw new ResourceNotFoundException("resource not found");
 		}
