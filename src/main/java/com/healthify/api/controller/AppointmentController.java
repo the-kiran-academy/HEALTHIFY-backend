@@ -87,7 +87,18 @@ public class AppointmentController {
 
 	@GetMapping(value = "/get-appointment-by-billingdate")
 	public ResponseEntity<List<Appointment>> getAppointmentsByBillingDate(@RequestParam Date billingDate) {
-		return null;
+		List<Appointment> list = service.getAppointmentsByBillingDate(billingDate);
+		
+		if(!list.isEmpty()) {
+			
+			return new ResponseEntity<List<Appointment>>(list, HttpStatus.OK);
+		}
+		else {
+			
+			LOG.info("Resource Not Found");
+			
+			throw new ResourceNotFoundException("Resource Not Found");
+		}
 	}
 
 	@GetMapping(value = "/get-count-of-appointments")
