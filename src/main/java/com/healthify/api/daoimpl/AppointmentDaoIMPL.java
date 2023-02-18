@@ -3,9 +3,12 @@ package com.healthify.api.daoimpl;
 import java.sql.Date;
 import java.util.List;
 
+import javax.persistence.EntityTransaction;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -25,10 +28,32 @@ public class AppointmentDaoIMPL implements AppointmentDao {
 
 	@Autowired
 	private SessionFactory sf;
-
+	
+	
 	@Override
 	public Appointment addAppointment(Appointment appointment) {
-		return null;
+	
+		Session session = sf.openSession();
+		
+		try {
+			Transaction transaction = session.beginTransaction();
+			Appointment app = (Appointment) session.save(appointment.getAppointmentpatientid());
+			if (app==null) {
+				
+				session.save(appointment);
+				transaction.commit();
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		
+		return appointment;
 	}
 
 	@Override
@@ -38,7 +63,24 @@ public class AppointmentDaoIMPL implements AppointmentDao {
 
 	@Override
 	public Appointment getAppointmentById(String patientId) {
-		return null;
+		
+		Session session = sf.openSession();
+		Appointment app1 = null;
+		
+		
+		try {
+			 app1 = session.get(Appointment.class, patientId);
+		
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		
+		return app1;
 	}
 
 	@SuppressWarnings("unchecked")
