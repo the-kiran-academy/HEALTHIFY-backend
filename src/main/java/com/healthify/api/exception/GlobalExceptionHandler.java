@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-	
+
 	@ExceptionHandler(BadCredentialsException.class)
-	public ResponseEntity<String> badCredentialsException(BadCredentialsException ex){
+	public ResponseEntity<String> badCredentialsException(BadCredentialsException ex) {
 		return new ResponseEntity<String>(ex.getMessage(), HttpStatus.OK);
 
 	}
-	
+
 	@ExceptionHandler(InvalidCredentialsException.class)
 	public ResponseEntity<String> invalidCredientials(InvalidCredentialsException ex) {
 
@@ -30,13 +30,14 @@ public class GlobalExceptionHandler {
 
 		return new ResponseEntity<String>(ex.getMessage(), HttpStatus.OK);
 	}
-	
+
 	@ExceptionHandler(ResourceNotFoundException.class)
 	public ResponseEntity<String> resourceNotFoundException(ResourceNotFoundException ex) {
 
-		return new ResponseEntity<String>(ex.getMessage(), HttpStatus.OK);
+		return new ResponseEntity<String>(ex.getMessage(), HttpStatus.NOT_FOUND);
 	}
-	
+
+
 	@ExceptionHandler(SomethingWentWrongException.class)
 	public ResponseEntity<String> somethingWentWrongException(SomethingWentWrongException ex) {
 
