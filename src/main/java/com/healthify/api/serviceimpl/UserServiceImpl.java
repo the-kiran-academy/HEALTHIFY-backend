@@ -87,7 +87,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Long getUserCountByDateAndType(Date registereddate, String type) {
-		return null;
+		Long count = dao.getUserCountByDateAndType(registereddate, type);
+		return count;
 	}
 
 	@Override
