@@ -79,23 +79,6 @@ public class AppointmentController {
 				}
 	}
 	
-//	public ResponseEntity<AppointmentPojo> getAppointmentsByDate(@RequestParam Date appointmentDate)   {
-//		List<Appointment> list = service.getAppointmentsByDate(appointmentDate);
-//			 if (list.isEmpty()|| list !=null) {
-//			return new ResponseEntity<>(new AppointmentPojo(false, null, "Resource not found"), HttpStatus.NOT_FOUND);
-//			 }
-//			 return new ResponseEntity<>(new AppointmentPojo(true, list, "ok"),HttpStatus.OK);
-//	}
-	
-//	public ResourceNotFoundException getAppointmentsByDate(@RequestParam Date appointmentDate)  {
-//		List<Appointment> list = service.getAppointmentsByDate(appointmentDate);
-//			 if (list.isEmpty() || list !=null) {
-//			return throw  new ResourceNotFoundException("Resource not found");
-//		}
-//			 return ResponseHandler.generateResponse(null, HttpStatus.OK, list);
-//	}
-	
-
 
 	@GetMapping(value = "/get-count-by-appointment-date")
 	public ResponseEntity<Long> getCountByAppointmentDate(@RequestParam Date date) {
