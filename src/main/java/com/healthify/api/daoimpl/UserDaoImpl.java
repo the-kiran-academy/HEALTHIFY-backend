@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
@@ -35,11 +36,15 @@ public class UserDaoImpl implements UserDao {
 	public boolean addUser(User user) {
 		Session session = sf.getCurrentSession();
 		boolean isAdded=false;
+		
 		try {
+		
 		User usr=session.get(User.class,user.getUsername());
+		
 		if (usr==null) {
 			session.save(usr);
 			isAdded=true;
+		
 		}
 			
 		} catch (Exception e) {
