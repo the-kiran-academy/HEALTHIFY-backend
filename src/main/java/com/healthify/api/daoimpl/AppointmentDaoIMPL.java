@@ -3,6 +3,9 @@ package com.healthify.api.daoimpl;
 import java.sql.Date;
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,11 +13,13 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
+import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.healthify.api.dao.AppointmentDao;
 import com.healthify.api.entity.Appointment;
+import com.healthify.api.exception.ResourceNotFoundException;
 
 /**
  * @author RAM
@@ -63,9 +68,21 @@ public class AppointmentDaoIMPL implements AppointmentDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Appointment> getAppointmentsByDate(Date date) {
-		return null;
-	}
+		Session session = sf.getCurrentSession();
+		List<Appointment> list = null;
+		try {
+			CriteriaBuilder cb = session.getCriteriaBuilder();
+			CriteriaQuery<Appointment> query = cb.createQuery(Appointment.class);
+			Root<Appointment> root = query.from(Appointment.class);
+			query.select(root).where(cb.equal(root.get("appointmentdate"), date));
+			list = session.createQuery(query).getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
 
+		return list;
+	}
 	@Override
 	public Long getCountByAppointmentDate(Date appointmentDate) {
 		return null;
