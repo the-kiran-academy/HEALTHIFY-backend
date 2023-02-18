@@ -82,9 +82,16 @@ public class AdminController {
 		
 	}
 
-	@GetMapping(value = "/get-total-count-of-user-by-date-and-type//{date}/{type}")
+	@GetMapping(value = "/get-total-count-of-user-by-date-and-type/{date}/{type}")
 	public ResponseEntity<Long> getUserCountByDateAndType(@PathVariable Date date, @PathVariable String type) {
-		return null;
+		
+		Long count = userService.getUserCountByDateAndType(date, type);
+		
+		if(count>0) {
+			return new ResponseEntity<Long>(count, HttpStatus.OK);
+		}else {
+			throw new ResourceNotFoundException("User not exist for type as "+type+" and Registered date as "+date);
+		}
 		
 	}
 
