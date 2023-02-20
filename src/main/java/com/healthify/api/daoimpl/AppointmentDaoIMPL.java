@@ -33,7 +33,7 @@ public class AppointmentDaoIMPL implements AppointmentDao {
 	@Override
 	public Appointment addAppointment(Appointment appointment) {
 	
-		Session session = sf.openSession();
+		Session session = sf.getCurrentSession();
 		
 		try {
 			Transaction transaction = session.beginTransaction();
@@ -47,11 +47,8 @@ public class AppointmentDaoIMPL implements AppointmentDao {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			if (session != null) {
-				session.close();
-			}
-		}
+		} 
+		
 		
 		return appointment;
 	}
