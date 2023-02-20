@@ -28,29 +28,11 @@ public class AppointmentDaoIMPL implements AppointmentDao {
 
 	@Autowired
 	private SessionFactory sf;
-	
-	
+
 	@Override
 	public Appointment addAppointment(Appointment appointment) {
-	
-		Session session = sf.getCurrentSession();
-		
-		try {
-			Transaction transaction = session.beginTransaction();
-			Appointment app = (Appointment) session.save(appointment.getAppointmentpatientid());
-			if (app==null) {
-				
-				session.save(appointment);
-				transaction.commit();
-				
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		} 
-		
-		
-		return appointment;
+
+		return null;
 	}
 
 	@Override
@@ -60,23 +42,17 @@ public class AppointmentDaoIMPL implements AppointmentDao {
 
 	@Override
 	public Appointment getAppointmentById(String patientId) {
-		
-		Session session = sf.openSession();
+
+		Session session = sf.getCurrentSession();
 		Appointment app1 = null;
-		
-		
+
 		try {
-			 app1 = session.get(Appointment.class, patientId);
-		
-			
+			app1 = session.get(Appointment.class, patientId);
+
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			if (session != null) {
-				session.close();
-			}
 		}
-		
+
 		return app1;
 	}
 

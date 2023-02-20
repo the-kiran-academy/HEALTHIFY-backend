@@ -21,7 +21,6 @@ import com.healthify.api.exception.ResourceNotFoundException;
 import com.healthify.api.exception.SomethingWentWrongException;
 import com.healthify.api.service.AppointmentService;
 
-
 /**
  * @author RAM
  *
@@ -37,28 +36,26 @@ public class AppointmentController {
 
 	@PostMapping(value = "/add-appointment")
 	public ResponseEntity<Appointment> addAppointment(@RequestBody Appointment appointment) {
-		
+
 		return null;
-		
+
 	}
 
 	@PutMapping(value = "/update-appointment")
 	public ResponseEntity<Appointment> updateAppointment(@RequestBody Appointment appointment) {
-		
+
 		return null;
 	}
 
 	@GetMapping(value = "/get-appointment-by-id/{id}")
 	public ResponseEntity<Appointment> getAppointmentById(@PathVariable String id) {
-		
+
 		Appointment isPresent = service.getAppointmentById(id);
-		if(isPresent != null) {
-			return new ResponseEntity<Appointment>(isPresent,HttpStatus.OK);
+		if (isPresent != null) {
+			return new ResponseEntity<Appointment>(isPresent, HttpStatus.OK);
 		} else {
 			throw new ResourceNotFoundException("Resource Not Found !");
 		}
-		
-		
 	}
 
 	@GetMapping(value = "/get-appointment-by-ids/{ids}")
@@ -87,32 +84,32 @@ public class AppointmentController {
 	public ResponseEntity<Long> getCountByAppointmentDate(@RequestParam Date date) {
 		return null;
 	}
-	
+
 	@GetMapping(value = "/get-appointment-by-billingdate")
 	public ResponseEntity<List<Appointment>> getAppointmentsByBillingDate(@RequestParam Date billingDate) {
 		return null;
 	}
-	
+
 	@GetMapping(value = "/get-count-of-appointments")
 	public ResponseEntity<Long> getAppointmentsTotalCount() {
 		return null;
 	}
-	
+
 	@GetMapping(value = "/get-count-by-appointmenttaken-date")
 	public ResponseEntity<Long> getCountByAppointmentTakenDate(@RequestParam Date appointmentTakenDate) {
 		return null;
 	}
-	
+
 	@GetMapping(value = "/get-count-by-treatmentstatus-and billingdate")
-	public ResponseEntity<Long> getCountByTreatmentStatusAndBillingDate(@RequestParam String treatmentStatus, @RequestParam Date billingDate) {
+	public ResponseEntity<Long> getCountByTreatmentStatusAndBillingDate(@RequestParam String treatmentStatus,
+			@RequestParam Date billingDate) {
 		return null;
 	}
-	
+
 	@GetMapping(value = "/get-all-appointments")
 	public ResponseEntity<List<Appointment>> getAllAppointments() {
 		return null;
 	}
-
 
 	@GetMapping(value = "/get-top5-appointments")
 	public ResponseEntity<List<Appointment>> getTop5AppointmentsByDate(@RequestParam Date date) {

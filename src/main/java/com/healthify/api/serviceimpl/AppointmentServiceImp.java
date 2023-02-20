@@ -34,8 +34,8 @@ public class AppointmentServiceImp implements AppointmentService {
 	}
 
 	@Override
-	public Appointment getAppointmentById(String appointmentId) {
-		return appointmentDao.getAppointmentById(appointmentId);
+	public Appointment getAppointmentById(String patientId) {
+		return appointmentDao.getAppointmentById(patientId);
 	}
 
 	@Override
