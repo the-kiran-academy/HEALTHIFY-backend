@@ -118,12 +118,13 @@ public class UserDaoImpl implements UserDao {
 		Session session=sf.getCurrentSession();
 		List<User> list=null;
 		try {
-			Criteria criteria=session.createCriteria(User.class).add(Restrictions.eq("firstname", firstname));
-			if(firstname!=null) {
-			list=criteria.list();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+			CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+			CriteriaQuery<User> query = criteriaBuilder.createQuery(User.class);
+			Root<User> root=query.from(User.class);
+			query.select(root).where(criteriaBuilder.equal(root.get("firstname"),firstname));
+			list=session.createQuery(query).getResultList();
+			} catch (Exception e) {
+			e.getMessage();
 		}
 		return list;
 	}
