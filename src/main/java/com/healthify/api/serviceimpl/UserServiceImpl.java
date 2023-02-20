@@ -2,6 +2,7 @@ package com.healthify.api.serviceimpl;
 
 import java.io.InputStream;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,6 +12,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -35,13 +37,21 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserDao dao;
-
+	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	@Autowired
+	private Date createdDate;
+	
 	@Value("${user.roles}")
 	private String[] roles;
 
 	@Override
 	public boolean addUser(User user) {
-		return	dao.addUser(user);
+		user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
+		user.setCreatedDate(createdDate);
+		return dao.addUser(user);
 		
 	}
 

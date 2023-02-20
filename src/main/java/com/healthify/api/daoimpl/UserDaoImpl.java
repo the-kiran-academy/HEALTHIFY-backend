@@ -38,13 +38,10 @@ public class UserDaoImpl implements UserDao {
 		boolean isAdded=false;
 		
 		try {
-		
 		User usr=session.get(User.class,user.getUsername());
-		
 		if (usr==null) {
-			session.save(usr);
+			session.save(user);
 			isAdded=true;
-		
 		}
 			
 		} catch (Exception e) {
