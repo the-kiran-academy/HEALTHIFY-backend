@@ -1,7 +1,14 @@
+
 package com.healthify.api.daoimpl;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,6 +18,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
@@ -106,7 +114,25 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public Long getUserCountByDateAndType(Date registeredDate, String type) {
-		return null;
+		Session session = sf.getCurrentSession();
+		long count=0;
+		
+		try {
+
+			CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+			CriteriaQuery query = criteriaBuilder.createQuery();
+			Root<User> root = query.from(User.class);
+		
+			query.select(root).where(criteriaBuilder.and(criteriaBuilder.equal(root.get("type"), type),
+					criteriaBuilder.equal(root.get("createdDate"), registeredDate)));
+			
+			Query<Object> createQuery = session.createQuery(query);
+			List<Object> resultList = createQuery.getResultList();
+			count=resultList.size();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return count;
 	}
 
 	@Override

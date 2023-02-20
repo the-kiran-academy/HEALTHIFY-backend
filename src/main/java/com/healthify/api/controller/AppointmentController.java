@@ -2,6 +2,8 @@ package com.healthify.api.controller;
 
 import java.sql.Date;
 import java.util.List;
+
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.healthify.api.entity.Appointment;
 import com.healthify.api.exception.ResourceNotFoundException;
-import com.healthify.api.exception.SomethingWentWrongException;
-import com.healthify.api.service.AppointmentService;
 
+import com.healthify.api.service.AppointmentService;
 
 /**
  * @author RAM
@@ -38,7 +39,7 @@ public class AppointmentController {
 	@PostMapping(value = "/add-appointment")
 	public ResponseEntity<Appointment> addAppointment(@RequestBody Appointment appointment) {
 		return null;
-		
+
 	}
 
 	@PutMapping(value = "/update-appointment")
@@ -76,40 +77,57 @@ public class AppointmentController {
 	}
 
 	@GetMapping(value = "/get-appointment-by-apointmentdate")
-	public ResponseEntity<List<Appointment>> getAppointmentsByDate(@RequestParam Date appointmentDate) {
-		return null;
+	public ResponseEntity<List<Appointment>> getAppointmentsByDate(@RequestParam Date appointmentDate)  {
+		List<Appointment> list = service.getAppointmentsByDate(appointmentDate);
+			if (!list.isEmpty()) {
+				 return new ResponseEntity<List<Appointment>>(list, HttpStatus.OK);
+				}else {
+					throw new ResourceNotFoundException("Resource not found") ;
+				}
 	}
+	
 
 	@GetMapping(value = "/get-count-by-appointment-date")
 	public ResponseEntity<Long> getCountByAppointmentDate(@RequestParam Date date) {
 		return null;
 	}
-	
+
 	@GetMapping(value = "/get-appointment-by-billingdate")
 	public ResponseEntity<List<Appointment>> getAppointmentsByBillingDate(@RequestParam Date billingDate) {
-		return null;
+		List<Appointment> list = service.getAppointmentsByBillingDate(billingDate);
+		
+		if(!list.isEmpty()) {
+			
+			return new ResponseEntity<List<Appointment>>(list, HttpStatus.OK);
+		}
+		else {
+			
+			LOG.info("Resource Not Found");
+			
+			throw new ResourceNotFoundException("Resource Not Found");
+		}
 	}
-	
+
 	@GetMapping(value = "/get-count-of-appointments")
 	public ResponseEntity<Long> getAppointmentsTotalCount() {
 		return null;
 	}
-	
+
 	@GetMapping(value = "/get-count-by-appointmenttaken-date")
 	public ResponseEntity<Long> getCountByAppointmentTakenDate(@RequestParam Date appointmentTakenDate) {
 		return null;
 	}
-	
+
 	@GetMapping(value = "/get-count-by-treatmentstatus-and billingdate")
-	public ResponseEntity<Long> getCountByTreatmentStatusAndBillingDate(@RequestParam String treatmentStatus, @RequestParam Date billingDate) {
+	public ResponseEntity<Long> getCountByTreatmentStatusAndBillingDate(@RequestParam String treatmentStatus,
+			@RequestParam Date billingDate) {
 		return null;
 	}
-	
+
 	@GetMapping(value = "/get-all-appointments")
 	public ResponseEntity<List<Appointment>> getAllAppointments() {
 		return null;
 	}
-
 
 	@GetMapping(value = "/get-top5-appointments")
 	public ResponseEntity<List<Appointment>> getTop5AppointmentsByDate(@RequestParam Date date) {
