@@ -125,7 +125,16 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public Long getUsersTotalCounts() {
-		return null;
+		Session session = sf.getCurrentSession();
+		long count=0;
+		try {
+			Criteria criteria = session.createCriteria(User.class);
+			List<User>list=criteria.list();
+			count=list.size();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return count;
 	}
 
 	@Override
