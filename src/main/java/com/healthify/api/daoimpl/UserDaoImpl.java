@@ -9,7 +9,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
@@ -158,8 +157,19 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public List<User> getUserByFirstName(String firstName) {
-		return null;
+	public List<User> getUserByFirstName(String firstname) {
+		Session session=sf.getCurrentSession();
+		List<User> list=null;
+		try {
+			CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+			CriteriaQuery<User> query = criteriaBuilder.createQuery(User.class);
+			Root<User> root=query.from(User.class);
+			query.select(root).where(criteriaBuilder.equal(root.get("firstname"),firstname));
+			list=session.createQuery(query).getResultList();
+			} catch (Exception e) {
+			e.getMessage();
+		}
+		return list;
 	}
 
 	@Override
