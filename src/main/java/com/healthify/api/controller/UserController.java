@@ -39,7 +39,7 @@ public class UserController {
 	public ResponseEntity<List<User>> getUserByFirstName(@PathVariable String name)
 	{
 	List<User>user=userService.getUserByFirstName(name);
-	if(user!=null) 
+	if(user!=null&& !user.isEmpty()) 
 	{
 	return new ResponseEntity<List<User>>(user,HttpStatus.OK);
 	}
