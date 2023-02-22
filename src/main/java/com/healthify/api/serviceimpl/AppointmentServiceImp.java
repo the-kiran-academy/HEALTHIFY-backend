@@ -25,7 +25,6 @@ public class AppointmentServiceImp implements AppointmentService {
 
 	@Override
 	public Appointment addAppointment(Appointment appointment) {
-
 		return null;
 	}
 
@@ -35,8 +34,9 @@ public class AppointmentServiceImp implements AppointmentService {
 	}
 
 	@Override
-	public Appointment getAppointmentById(String appointmentId) {
-		return null;
+	public Appointment getAppointmentById(String patientId) {
+		Appointment appointmentById = appointmentDao.getAppointmentById(patientId);
+		return appointmentById;
 	}
 
 	@Override
