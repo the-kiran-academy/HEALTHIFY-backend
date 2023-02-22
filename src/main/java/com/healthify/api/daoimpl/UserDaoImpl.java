@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
@@ -41,7 +42,20 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public boolean addUser(User user) {
-		return false;
+		Session session = sf.getCurrentSession();
+		boolean isAdded=false;
+		
+		try {
+		User usr=session.get(User.class,user.getUsername());
+		if (usr==null) {
+			session.save(user);
+			isAdded=true;
+		}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return isAdded;
 	}
 
 	@Override
