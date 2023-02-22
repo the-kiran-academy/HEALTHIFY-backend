@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,11 +32,18 @@ public class AdminController {
 
 	@Autowired
 	UserService userService;
+	@Autowired
+	BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@PostMapping("/add-user")
 	public ResponseEntity<Boolean> registerUser(@RequestBody User user) {
-		return null;
-
+		boolean isAdded = userService.addUser(user);
+		
+		if(isAdded) {
+			return new ResponseEntity<Boolean>(isAdded,HttpStatus.CREATED);
+		}else {
+			throw new ResourceAlreadyExistsException("Allready exists!!");
+		}
 		
 	}
 
@@ -54,8 +62,12 @@ public class AdminController {
 
 	@GetMapping(value = "get-all-user", produces = "application/json")
 	public ResponseEntity<List<User>> getAllAdmin() {
-		return null;
-		
+		List<User> allUsers = userService.getAllUsers();
+		if(!allUsers.isEmpty()) {
+			return new ResponseEntity<List<User>>(allUsers,HttpStatus.OK);
+		}else {
+			throw new ResourceNotFoundException("resource not found");
+		}	
 	}
 
 	@PostMapping(value = "/add-role")
@@ -82,9 +94,16 @@ public class AdminController {
 		
 	}
 
-	@GetMapping(value = "/get-total-count-of-user-by-date-and-type//{date}/{type}")
+	@GetMapping(value = "/get-total-count-of-user-by-date-and-type/{date}/{type}")
 	public ResponseEntity<Long> getUserCountByDateAndType(@PathVariable Date date, @PathVariable String type) {
-		return null;
+		
+		Long count = userService.getUserCountByDateAndType(date, type);
+		
+		if(count>0) {
+			return new ResponseEntity<Long>(count, HttpStatus.OK);
+		}else {
+			throw new ResourceNotFoundException("User not exist for type as "+type+" and Registered date as "+date);
+		}
 		
 	}
 
