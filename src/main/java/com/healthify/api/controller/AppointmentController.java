@@ -52,9 +52,16 @@ public class AppointmentController {
 		return null;
 	}
 
-	@GetMapping(value = "/get-appointment-by-ids/{ids}")
-	public ResponseEntity<List<Appointment>> getAppointmentsByPatientsIds(@PathVariable List<String> ids) {
-		return null;
+	@GetMapping(value = "/get-appointment-by-ids")
+	public ResponseEntity<List<Appointment>> getAppointmentsByPatientsIds(@RequestParam List<String> ids) {
+		  
+	List<Appointment> appointmentList=	service.getAppointmentsByPatientsIds(ids);
+		if(!appointmentList.isEmpty()){
+			return new ResponseEntity<List<Appointment>>(appointmentList, HttpStatus.OK);
+		}else{
+			throw new ResourceNotFoundException("Appointments with Given Ids are not present");
+		}
+		
 	}
 
 	@GetMapping(value = "/get-appointment-by-drid-apointmentdate/{drid}/{date}")

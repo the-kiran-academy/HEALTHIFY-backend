@@ -1,11 +1,14 @@
 package com.healthify.api.daoimpl;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jdt.internal.compiler.ast.ForeachStatement;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -48,8 +51,28 @@ public class AppointmentDaoIMPL implements AppointmentDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Appointment> getAppointmentsByPatientsIds(List<String> patientsId) {
-		return null;
+	public List<Appointment> getAppointmentsByPatientsIds(List<String> patientIds) {
+
+		List<Appointment> appointmentList = new ArrayList<Appointment>();
+		Session session = sf.getCurrentSession();
+
+		try {
+			for (String Id : patientIds) {
+
+				Appointment dbAppointment = session.get(Appointment.class, Id);
+
+				if (dbAppointment != null) {
+					appointmentList.add(dbAppointment);
+				}
+
+			}
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		return appointmentList;
 	}
 
 	@SuppressWarnings("unchecked")

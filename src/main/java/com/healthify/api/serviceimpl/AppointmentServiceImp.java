@@ -41,7 +41,11 @@ public class AppointmentServiceImp implements AppointmentService {
 
 	@Override
 	public List<Appointment> getAppointmentsByPatientsIds(List<String> patientsId) {
-		return null;
+		
+		
+		
+		
+		return appointmentDao.getAppointmentsByPatientsIds(patientsId);
 	}
 
 	@Override
