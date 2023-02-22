@@ -108,7 +108,15 @@ public class UserDaoImpl implements UserDao {
 	@SuppressWarnings({ "deprecation", "unchecked" })
 	@Override
 	public List<User> getAllUsers() {
-		return null;
+		List<User> list=null;
+		try {
+			Session session=sf.getCurrentSession();
+			Criteria criteria=session.createCriteria(User.class);
+			list=criteria.list();
+		} catch (Exception e) {
+			e.getMessage();
+		}
+		return list;
 	}
 
 	@Override
