@@ -45,7 +45,7 @@ public class Appointment {
 	private String treatmentstatus;
 	
 	@Column(name = "TreatmentCost")
-	private double treatmentprice;
+	private double treatmentCost;
 	
 	@Column(name = "BillMade")
 	private String billMade;
@@ -123,11 +123,11 @@ public class Appointment {
 	
 
 	public double getTreatmentprice() {
-		return treatmentprice;
+		return treatmentCost;
 	}
 
 	public void setTreatmentprice(double treatmentprice) {
-		this.treatmentprice = treatmentprice;
+		this.treatmentCost = treatmentprice;
 	}
 
 	public String getBillMade() {

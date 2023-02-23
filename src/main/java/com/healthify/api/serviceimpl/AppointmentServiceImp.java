@@ -41,7 +41,11 @@ public class AppointmentServiceImp implements AppointmentService {
 
 	@Override
 	public List<Appointment> getAppointmentsByPatientsIds(List<String> patientsId) {
-		return null;
+		
+		
+		
+		
+		return appointmentDao.getAppointmentsByPatientsIds(patientsId);
 	}
 
 	@Override
@@ -57,7 +61,7 @@ public class AppointmentServiceImp implements AppointmentService {
 
 	@Override
 	public List<Appointment> getAppointmentsByDate(Date date) {
-		return null;
+		return appointmentDao.getAppointmentsByDate(date);
 	}
 
 	@Override
@@ -66,7 +70,8 @@ public class AppointmentServiceImp implements AppointmentService {
 	}
 	@Override
 	public List<Appointment> getAppointmentsByBillingDate(Date billingDate) {
-		return null;
+		
+		return appointmentDao.getAppointmentsByBillingDate(billingDate);
 	}
 
 	@Override
