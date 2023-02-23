@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
-	@Autowired
+	@Autowired(required = false)
 	private Date createdDate;
 	
 	@Value("${user.roles}")
