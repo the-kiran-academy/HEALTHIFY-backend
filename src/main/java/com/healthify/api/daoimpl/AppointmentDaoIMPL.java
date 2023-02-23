@@ -12,6 +12,7 @@ import javax.persistence.criteria.Root;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.CountProjection;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -132,7 +133,24 @@ public class AppointmentDaoIMPL implements AppointmentDao {
 
 	@Override
 	public Long getAppointmentsTotalCount() {
-		return null;
+		Long AppointmentCount = null;
+		Session session = sf.getCurrentSession();
+
+		try {
+
+			Criteria criteria = session.createCriteria(Appointment.class);
+			criteria.add(Restrictions.eq("treatmentstatus", "pending"));
+			CountProjection projections = Projections.count("treatmentstatus");
+			criteria.setProjection(projections);
+			AppointmentCount = new Long((long) criteria.uniqueResult());
+			// System.err.println(AppointmentCount);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return AppointmentCount;
+		
 	}
 
 	@Override
