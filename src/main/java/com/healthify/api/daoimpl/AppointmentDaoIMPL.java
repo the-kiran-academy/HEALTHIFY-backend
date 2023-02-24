@@ -46,7 +46,15 @@ public class AppointmentDaoIMPL implements AppointmentDao {
 
 	@Override
 	public Appointment getAppointmentById(String patientId) {
-		return null;
+		Session session = sf.getCurrentSession();
+		Appointment app1 = null;
+		
+		try {
+			app1 = session.get(Appointment.class, patientId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return app1;
 	}
 
 	@SuppressWarnings("unchecked")

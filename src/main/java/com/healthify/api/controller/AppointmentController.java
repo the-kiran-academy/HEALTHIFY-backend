@@ -49,7 +49,13 @@ public class AppointmentController {
 
 	@GetMapping(value = "/get-appointment-by-id/{id}")
 	public ResponseEntity<Appointment> getAppointmentById(@PathVariable String id) {
-		return null;
+		Appointment isPresent = service.getAppointmentById(id);
+		if(isPresent != null) {
+			return new ResponseEntity<Appointment>(isPresent,HttpStatus.OK);
+		} else {
+			throw new ResourceNotFoundException("Resource Not Found !");
+		}
+
 	}
 
 	@GetMapping(value = "/get-appointment-by-ids")
