@@ -4,14 +4,19 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import javax.persistence.EntityTransaction;
+
 import org.eclipse.jdt.internal.compiler.ast.ForeachStatement;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -33,9 +38,11 @@ public class AppointmentDaoIMPL implements AppointmentDao {
 
 	@Autowired
 	private SessionFactory sf;
-
+	
+	
 	@Override
 	public Appointment addAppointment(Appointment appointment) {
+	
 		return null;
 	}
 
@@ -46,7 +53,21 @@ public class AppointmentDaoIMPL implements AppointmentDao {
 
 	@Override
 	public Appointment getAppointmentById(String patientId) {
-		return null;
+		
+		Session session = sf.getCurrentSession();
+		Appointment app1 = null;
+		
+		
+		try {
+			 app1 = session.get(Appointment.class, patientId);
+		
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		
+		
+		return app1;
 	}
 
 	@SuppressWarnings("unchecked")

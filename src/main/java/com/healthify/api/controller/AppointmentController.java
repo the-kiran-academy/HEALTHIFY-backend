@@ -38,18 +38,27 @@ public class AppointmentController {
 
 	@PostMapping(value = "/add-appointment")
 	public ResponseEntity<Appointment> addAppointment(@RequestBody Appointment appointment) {
+		
 		return null;
 
 	}
 
 	@PutMapping(value = "/update-appointment")
 	public ResponseEntity<Appointment> updateAppointment(@RequestBody Appointment appointment) {
+		
 		return null;
 	}
 
 	@GetMapping(value = "/get-appointment-by-id/{id}")
 	public ResponseEntity<Appointment> getAppointmentById(@PathVariable String id) {
-		return null;
+		
+		Appointment isPresent = service.getAppointmentById(id);
+		if(isPresent != null) {
+			return new ResponseEntity<Appointment>(isPresent,HttpStatus.OK);
+		} else {
+			throw new ResourceNotFoundException("Resource Not Found !");
+		}
+	
 	}
 
 	@GetMapping(value = "/get-appointment-by-ids")
