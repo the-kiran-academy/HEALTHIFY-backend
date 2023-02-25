@@ -142,7 +142,22 @@ public class AppointmentDaoIMPL implements AppointmentDao {
 
 	@Override
 	public Long getCountByTreatmentStatusAndBillingDate(String treatmentStatus, Date billingDate) {
-		return null;
+		Session session=null;
+		long count=0;
+		try {
+			session=sf.getCurrentSession();
+			Criteria cr=session.createCriteria(Appointment.class);
+			
+			SimpleExpression crt1=Restrictions.eq("treatmentstatus", treatmentStatus);
+			SimpleExpression crt2 = Restrictions.eq("billingDate", billingDate);
+			cr.add(Restrictions.and(crt1, crt2));
+			cr.setProjection(Projections.rowCount());
+			count=(long) cr.uniqueResult();
+			
+		} catch (Exception e) {
+			e.getMessage();
+		}
+		return count;
 	}
 
 	@SuppressWarnings("unchecked")

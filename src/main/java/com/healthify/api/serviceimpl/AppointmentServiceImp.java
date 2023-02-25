@@ -86,7 +86,7 @@ public class AppointmentServiceImp implements AppointmentService {
 
 	@Override
 	public Long getCountByTreatmentStatusAndBillingDate(String treatmentStatus, Date billingDate) {
-		return null;
+		return appointmentDao.getCountByTreatmentStatusAndBillingDate(treatmentStatus, billingDate);
 	}
 
 	@Override
