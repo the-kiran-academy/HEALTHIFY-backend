@@ -1,3 +1,4 @@
+
 package com.healthify.api.daoimpl;
 
 import java.sql.Date;
@@ -151,7 +152,6 @@ public class UserDaoImpl implements UserDao {
 			CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
 			CriteriaQuery query = criteriaBuilder.createQuery();
 			Root<User> root = query.from(User.class);
-
 			query.select(root).where(criteriaBuilder.and(criteriaBuilder.equal(root.get("type"), type),
 					criteriaBuilder.equal(root.get("createdDate"), registeredDate)));
 			
