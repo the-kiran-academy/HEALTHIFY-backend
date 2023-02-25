@@ -55,7 +55,6 @@ public class AppointmentController {
 		} else {
 			throw new ResourceNotFoundException("Resource Not Found !");
 		}
-
 	}
 
 	@GetMapping(value = "/get-appointment-by-ids")

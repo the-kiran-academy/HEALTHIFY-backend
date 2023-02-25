@@ -48,7 +48,6 @@ public class AppointmentDaoIMPL implements AppointmentDao {
 	public Appointment getAppointmentById(String patientId) {
 		Session session = sf.getCurrentSession();
 		Appointment app1 = null;
-		
 		try {
 			app1 = session.get(Appointment.class, patientId);
 		} catch (Exception e) {
