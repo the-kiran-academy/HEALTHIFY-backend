@@ -118,10 +118,16 @@ public class AppointmentController {
 		return null;
 	}
 
-	@GetMapping(value = "/get-count-by-treatmentstatus-and billingdate")
-	public ResponseEntity<Long> getCountByTreatmentStatusAndBillingDate(@RequestParam String treatmentStatus,
-			@RequestParam Date billingDate) {
-		return null;
+	@GetMapping(value = "/get-count-by-treatmentstatus-and billingdate/{treatmentStatus}/{billingDate}")
+	public ResponseEntity<Long> getCountByTreatmentStatusAndBillingDate(@PathVariable String treatmentStatus,
+			@PathVariable Date billingDate) {
+		long count=service.getCountByTreatmentStatusAndBillingDate(treatmentStatus, billingDate);
+		if(count>0) {
+			return new ResponseEntity<Long>(count,HttpStatus.OK);
+		}else {
+			throw new ResourceNotFoundException("no record found for treatment status "+treatmentStatus+" with billing date "+billingDate);
+		}
+		
 	}
 
 	@GetMapping(value = "/get-all-appointments")
