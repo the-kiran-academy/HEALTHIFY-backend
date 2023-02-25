@@ -133,4 +133,19 @@ public class AppointmentController {
 	public ResponseEntity<List<Appointment>> getTop5AppointmentsByDate(@RequestParam Date date) {
 		return null;
 	}
+	
+	@GetMapping(value = "/get-appointment-by-DRID-and-Update-time")
+	public ResponseEntity<List<Appointment>> getAppointmentByDoctorIdAndUpdateTime(@RequestParam String doctorId, @RequestParam String appointmentTime) {
+
+		List<Appointment> list = service.getAppointmentByDoctorIdAndUpdateTime(doctorId, appointmentTime);
+		
+		if(!list.isEmpty()) {
+			
+			return new ResponseEntity<List<Appointment>>(list, HttpStatus.OK);
+		}
+		else {
+			
+			throw new ResourceNotFoundException("record Not Available");
+		}
+	}
 }
