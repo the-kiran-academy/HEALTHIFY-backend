@@ -37,11 +37,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.and()
 		.authorizeRequests()
 		.antMatchers("/admin/**").hasRole("ADMIN") // ADMIN USER
-				.antMatchers("/appointment/**").hasRole("RECEPTIONIST") // RECEPTIONIST USER
-				// .antMatchers("/doctor/**").hasRole("DOCTOR") // DOCTOR USER
+				//.antMatchers("/appointment/**").hasRole("RECEPTIONIST") // RECEPTIONIST USER
+			  //.antMatchers("/doctor/**").hasRole("DOCTOR") // DOCTOR USER
 				// .antMatchers("/user/**").hasRole("ADMIN") // USER USER
-				// .antMatchers("/pharmacist/**").hasRole("PHARMACIST") // PHARMACIST USER
-				// .antMatchers("/receptionist/**").hasRole("RECEPTIONIST") // RECEPTIONIST USER
+				 //.antMatchers("/pharmacist/**").hasRole("PHARMACIST") // PHARMACIST USER
+				 .antMatchers("/receptionist/**").hasRole("RECEPTIONIST") // RECEPTIONIST USER
 
 				
 

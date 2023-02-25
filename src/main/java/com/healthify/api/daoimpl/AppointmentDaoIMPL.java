@@ -16,12 +16,14 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.SimpleExpression;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.healthify.api.dao.AppointmentDao;
 import com.healthify.api.entity.Appointment;
+import com.healthify.api.entity.User;
 import com.healthify.api.exception.ResourceNotFoundException;
 
 /**
@@ -155,6 +157,24 @@ public class AppointmentDaoIMPL implements AppointmentDao {
 	@Override
 	public List<Appointment> getTop5AppointmentsByDate(Date date) {
 		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Appointment> getAppointmentByDoctorIdAndUpdateTime(String doctorId, String appointmenttime) {
+
+		List<Appointment> list = new ArrayList<Appointment>();
+		
+		Session session = sf.getCurrentSession();
+		
+		try {
+			Appointment appointment = session.get(Appointment.class, doctorId);
+			list.add(appointment);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+			 
+		return list;
 	}
 
 }

@@ -99,4 +99,11 @@ public class AppointmentServiceImp implements AppointmentService {
 		return null;
 	}
 
+	@Override
+	public List<Appointment> getAppointmentByDoctorIdAndUpdateTime(String doctorId ,String appointmenttime) {
+ 		
+		return null;
+	
+
+	}
 }
