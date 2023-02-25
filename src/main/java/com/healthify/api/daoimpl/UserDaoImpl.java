@@ -118,9 +118,34 @@ public class UserDaoImpl implements UserDao {
 		return list;
 	}
 
+	
 	@Override
 	public User updateUser(User user) {
-		return null;
+		
+
+		Session session = sf.getCurrentSession();
+		boolean isUpdated = false;
+		User dbUser=null;
+		try 
+		{	
+			dbUser = session.get(User.class, user.getUsername());
+			if (dbUser != null) 
+			{
+				session.evict(dbUser);
+				session.update(user);
+				isUpdated = true;
+			} 
+			if(!isUpdated) 
+			{
+                user = null;
+            }		
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		return user;
+
 	}
 
 	@Override

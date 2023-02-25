@@ -54,10 +54,22 @@ public class AdminController {
 	}
 
 	@PutMapping("/update-user")
-	public ResponseEntity<User> updateUser(@RequestBody User user) {
-		return null;
+	public ResponseEntity<?> updateUser(@RequestBody User user) {
 		
-
+		User updatedUser = userService.updateUser(user);
+		
+		if(updatedUser!=null) {
+			
+			LOG.info("User is Updated for the username ->"+user.getUsername());
+			return new ResponseEntity<>("Update user resource in database successfully..",
+                                               HttpStatus.OK);
+		}
+		else {
+			
+			//LOG.info("Username "+user.getUsername()+" Not Found For Update Record.");
+			throw new ResourceNotFoundException("Username "+user.getUsername()+" Not Found For Update Record.");
+		}
+	
 	}
 
 	@GetMapping(value = "get-all-user", produces = "application/json")

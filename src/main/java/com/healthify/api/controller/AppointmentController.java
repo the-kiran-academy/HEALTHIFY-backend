@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.healthify.api.entity.Appointment;
+import com.healthify.api.exception.InvalidCredentialsException;
 import com.healthify.api.exception.ResourceNotFoundException;
 
 import com.healthify.api.service.AppointmentService;
@@ -43,8 +44,9 @@ public class AppointmentController {
 	}
 
 	@PutMapping(value = "/update-appointment")
-	public ResponseEntity<Appointment> updateAppointment(@RequestBody Appointment appointment) {
+	public ResponseEntity<?> updateAppointment(@RequestBody Appointment appointment) {
 		return null;
+		
 	}
 
 	@GetMapping(value = "/get-appointment-by-id/{id}")

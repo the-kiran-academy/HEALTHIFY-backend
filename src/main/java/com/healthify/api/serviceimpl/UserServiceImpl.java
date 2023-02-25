@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
-	@Autowired
+	@Autowired(required = false) 
 	private Date createdDate;
 	
 	@Value("${user.roles}")
@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User updateUser(User user) {
-		return null;
+		return dao.updateUser(user);
 	}
 
 	@Override
