@@ -67,9 +67,9 @@ public class AppointmentServiceImp implements AppointmentService {
 	}
 
 	@Override
-	public Long getCountByAppointmentDate(Date appointmentDate) {
+	public Long getCountByAppointmentDate(Date date) {
 		
-		Long countByAppointmentDate = appointmentDao.getCountByAppointmentDate(appointmentDate);
+		Long countByAppointmentDate = appointmentDao.getCountByAppointmentDate(date);
 		return countByAppointmentDate;
 	}
 	

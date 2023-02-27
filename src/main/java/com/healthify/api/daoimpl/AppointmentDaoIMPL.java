@@ -126,11 +126,9 @@ public class AppointmentDaoIMPL implements AppointmentDao {
 			query.select(cb.count(root)).where(cb.equal(root.get("appointmentdate"), appointmentDate));
 			count = session.createQuery(query).getSingleResult();
 			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		
 		return count;
 	}

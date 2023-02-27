@@ -100,9 +100,8 @@ public class AppointmentController {
 		if(count > 0) {
 			return new ResponseEntity<Long>(count,HttpStatus.OK);
 		} else {
-			throw new ResourceNotFoundException("Data doesnt exists with this date!");
+			throw new ResourceNotFoundException("Appointment doesnt exist with this date!");
 		}
-		
 	}
 
 	@GetMapping(value = "/get-appointment-by-billingdate")
