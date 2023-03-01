@@ -49,7 +49,12 @@ public class AppointmentController {
 
 	@GetMapping(value = "/get-appointment-by-id/{id}")
 	public ResponseEntity<Appointment> getAppointmentById(@PathVariable String id) {
-		return null;
+		Appointment isPresent = service.getAppointmentById(id);
+		if(isPresent != null) {
+			return new ResponseEntity<Appointment>(isPresent,HttpStatus.OK);
+		} else {
+			throw new ResourceNotFoundException("Resource Not Found !");
+		}
 	}
 
 	@GetMapping(value = "/get-appointment-by-ids")
@@ -87,9 +92,17 @@ public class AppointmentController {
 	}
 	
 
-	@GetMapping(value = "/get-count-by-appointment-date")
+	@GetMapping(value = "/get-count-by-appointment-date/{date}")
 	public ResponseEntity<Long> getCountByAppointmentDate(@RequestParam Date date) {
-		return null;
+		
+		Long count = service.getCountByAppointmentDate(date);
+		
+		if(count > 0) {
+			return new ResponseEntity<Long>(count,HttpStatus.OK);
+		} else {
+			throw new ResourceNotFoundException("Data doesnt exists with this date!");
+		}
+		
 	}
 
 	@GetMapping(value = "/get-appointment-by-billingdate")

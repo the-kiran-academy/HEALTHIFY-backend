@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jdt.internal.compiler.ast.ForeachStatement;
+
+import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -46,7 +48,14 @@ public class AppointmentDaoIMPL implements AppointmentDao {
 
 	@Override
 	public Appointment getAppointmentById(String patientId) {
-		return null;
+		Session session = sf.getCurrentSession();
+		Appointment app1 = null;
+		try {
+			app1 = session.get(Appointment.class, patientId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return app1;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -108,7 +117,22 @@ public class AppointmentDaoIMPL implements AppointmentDao {
 	}
 	@Override
 	public Long getCountByAppointmentDate(Date appointmentDate) {
-		return null;
+		Session session = sf.getCurrentSession();
+		long count = 0L;
+		try {
+			CriteriaBuilder cb = session.getCriteriaBuilder();
+			CriteriaQuery<Long> query = cb.createQuery(Long.class);
+			Root<Appointment> root = query.from(Appointment.class);
+			query.select(cb.count(root)).where(cb.equal(root.get("appointmentdate"), appointmentDate));
+			count = session.createQuery(query).getSingleResult();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return count;
 	}
 
 	@SuppressWarnings("unchecked")
