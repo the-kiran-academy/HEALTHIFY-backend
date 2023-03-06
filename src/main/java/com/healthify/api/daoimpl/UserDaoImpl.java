@@ -154,7 +154,7 @@ public class UserDaoImpl implements UserDao {
 			Root<User> root = query.from(User.class);
 		
 			query.select(root).where(criteriaBuilder.and(criteriaBuilder.equal(root.get("type"), type),
-					criteriaBuilder.equal(root.get("createdDate"), registeredDate)));
+			criteriaBuilder.equal(root.get("createdDate"), registeredDate)));
 			
 			Query<Object> createQuery = session.createQuery(query);
 			List<Object> resultList = createQuery.getResultList();
@@ -170,7 +170,7 @@ public class UserDaoImpl implements UserDao {
 		Session session=sf.getCurrentSession();
 		List<User> list=null;
 		try {
-			CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
 			CriteriaQuery<User> query = criteriaBuilder.createQuery(User.class);
 			Root<User> root=query.from(User.class);
 			query.select(root).where(criteriaBuilder.equal(root.get("firstname"),firstname));
