@@ -126,8 +126,17 @@ public class AppointmentController {
 
 	@GetMapping(value = "/get-all-appointments")
 	public ResponseEntity<List<Appointment>> getAllAppointments() {
-		return null;
+		List<Appointment> allappointments=service.getAllAppointments();
+		if(allappointments!=null) {
+			return new ResponseEntity<List<Appointment>>(allappointments, HttpStatus.OK);
+			
+		}else
+
+		LOG.info("Resource Not Found");
+		
+		throw new ResourceNotFoundException("Resource Not Found");
 	}
+	
 
 	@GetMapping(value = "/get-top5-appointments")
 	public ResponseEntity<List<Appointment>> getTop5AppointmentsByDate(@RequestParam Date date) {

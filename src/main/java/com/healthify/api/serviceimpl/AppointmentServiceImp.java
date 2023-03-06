@@ -91,7 +91,7 @@ public class AppointmentServiceImp implements AppointmentService {
 
 	@Override
 	public List<Appointment> getAllAppointments() {
-		return null;
+		return appointmentDao.getAllAppointments();
 	}
 
 	@Override
